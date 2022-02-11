@@ -9,10 +9,11 @@ import Login from "../../components/Login";
 
 function Doc() {
   const [session, loading] = useSession();
-  console.log(session);
+  if (!session) return <Login />;
 
   const router = useRouter();
   const { id } = router.query;
+
   const [snapshot, loadingSnapshot] = useDocumentOnce(
     db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
   );
@@ -22,7 +23,6 @@ function Doc() {
     // Filename will not be present if the user doesnt have access...
     router.replace("/");
   }
-  if (!session) return <Login />;
 
   return (
     <div>
