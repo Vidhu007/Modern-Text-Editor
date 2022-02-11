@@ -20,7 +20,6 @@ import Login from "../components/Login";
 
 export default function Home() {
   const [session, loading] = useSession();
-  if (!session) return <Login />;
 
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
@@ -33,6 +32,7 @@ export default function Home() {
       .collection("docs")
       .orderBy("timestamp", "desc")
   );
+  if (!session) return <Login />;
 
   const createDocument = () => {
     if (!input) return;

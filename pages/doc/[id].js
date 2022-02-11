@@ -9,15 +9,14 @@ import Login from "../../components/Login";
 
 function Doc() {
   const [session, loading] = useSession();
-  console.log(session);
-  if (!session) return <Login />;
+  ///console.log(session);
 
   const router = useRouter();
   const { id } = router.query;
   const [snapshot, loadingSnapshot] = useDocumentOnce(
     db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
   );
-
+  if (!session) return <Login />;
   // Redirect if user tries to access a URL they do not have access to...
   if (!loadingSnapshot && !snapshot?.data()?.fileName) {
     // Filename will not be present if the user doesnt have access...
