@@ -22,7 +22,7 @@ export default function Home() {
   const [session, loading] = useSession();
   useEffect(() => {
     if (!session) return <Login />;
-  }, [session]);
+  }, []);
  
 
   const [showModal, setShowModal] = useState(false);
@@ -40,7 +40,7 @@ export default function Home() {
     if (!input) return;
 
     db.collection("userDocs")
-      .doc(session.user.email)
+      .doc(session?.user?.email)
       .collection("docs")
       .add({
         fileName: input,
