@@ -1,3 +1,4 @@
+import {useEffect } from "react";
 import TextEditor from "../../components/TextEditor";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
@@ -9,7 +10,9 @@ import Login from "../../components/Login";
 
 function Doc() {
   const [session, loading] = useSession();
-  if (!session) return <Login />;
+  useEffect(() => {
+    if (!session) return <Login />;
+  }, [session]);
 
   const router = useRouter();
   const { id } = router.query;

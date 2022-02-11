@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Icon from "@material-tailwind/react/Icon";
@@ -20,7 +20,10 @@ import Login from "../components/Login";
 
 export default function Home() {
   const [session, loading] = useSession();
-  if (!session) return <Login />;
+  useEffect(() => {
+    if (!session) return <Login />;
+  }, [session]);
+ 
 
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
