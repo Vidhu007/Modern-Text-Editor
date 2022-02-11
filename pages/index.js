@@ -20,7 +20,6 @@ import Login from "../components/Login";
 
 export default function Home() {
   const [session, loading] = useSession();
-  if (!session) return <Login />;
 
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
@@ -78,6 +77,7 @@ export default function Home() {
       </ModalFooter>
     </Modal>
   );
+  if (!session) return <Login />;
 
   return (
     <div className="w-full h-screen">
