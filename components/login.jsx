@@ -9,6 +9,7 @@ function Login() {
         src="https://links.papareact.com/1ui"
         height="300"
         width="550"
+        alt="Google Docs Image"
         objectFit="contain"
       />
 

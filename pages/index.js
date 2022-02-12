@@ -1,35 +1,31 @@
-import { useState } from "react";
 import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { getSession, useSession } from "next-auth/client";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { db, timestamp } from "../firebase";
 import Header from "../components/Header";
 import Icon from "@material-tailwind/react/Icon";
 import Button from "@material-tailwind/react/Button";
-import Image from "next/image";
 import DocumentRow from "../components/DocumentRow";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
-import { db } from "../firebase";
-import firebase from "firebase";
-import { useRouter } from "next/dist/client/router";
-import {
-  useCollection,
-  useCollectionOnce,
-} from "react-firebase-hooks/firestore";
-import { getSession, useSession } from "next-auth/client";
-import Login from "../components/Login";
+import Login from "../components/login";
 
 export default function Home() {
   const [session, loading] = useSession();
-  if (!session) return <Login />;
+  const router = useRouter();
 
+  // States
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
-  const router = useRouter();
 
   const [snapshot] = useCollectionOnce(
     db
       .collection("userDocs")
-      .doc(session.user.email)
+      .doc(session?.user.email)
       .collection("docs")
       .orderBy("timestamp", "desc")
   );
@@ -42,7 +38,7 @@ export default function Home() {
       .collection("docs")
       .add({
         fileName: input,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: timestamp,
       })
       .then((doc) => router.push(`/doc/${doc.id}`));
 
@@ -66,7 +62,7 @@ export default function Home() {
         <Button
           color="blue"
           buttonType="link"
-          onClick={(e) => setShowModal(false)}
+          onClick={() => setShowModal(false)}
           ripple="dark"
         >
           Cancel
@@ -78,6 +74,8 @@ export default function Home() {
       </ModalFooter>
     </Modal>
   );
+
+  if (!session) return <Login />;
 
   return (
     <div className="w-full h-screen">
@@ -107,9 +105,14 @@ export default function Home() {
           <div>
             <div
               className="relative h-52 w-40 border-2 cursor-pointer hover:border-blue-400"
-              onClick={(e) => setShowModal(true)}
+              onClick={() => setShowModal(true)}
             >
-              <Image src="https://links.papareact.com/pju" layout="fill" />
+              <Image
+                src="https://links.papareact.com/pju"
+                priority
+                alt="Create new document"
+                layout="fill"
+              />
             </div>
             <p className="ml-2 mt-2 font-semibold text-sm text-gray-700">
               Blank

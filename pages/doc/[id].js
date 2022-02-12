@@ -5,17 +5,21 @@ import { useRouter } from "next/dist/client/router";
 import { db } from "../../firebase";
 import { useDocumentOnce } from "react-firebase-hooks/firestore";
 import { getSession, signOut, useSession } from "next-auth/client";
-import Login from "../../components/Login";
+import Login from "../../components/login";
+import Image from "next/image";
 
 function Doc() {
   const [session, loading] = useSession();
   console.log(session);
-  if (!session) return <Login />;
 
   const router = useRouter();
   const { id } = router.query;
   const [snapshot, loadingSnapshot] = useDocumentOnce(
-    db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
+    db
+      .collection("userDocs")
+      .doc(session?.user.email)
+      .collection("docs")
+      .doc(id)
   );
 
   // Redirect if user tries to access a URL they do not have access to...
@@ -23,6 +27,8 @@ function Doc() {
     // Filename will not be present if the user doesnt have access...
     router.replace("/");
   }
+
+  if (!session) return <Login />;
 
   return (
     <div>
@@ -55,10 +61,12 @@ function Doc() {
           <Icon name="people" size="md" /> SHARE
         </Button>
 
-        <img
+        <Image
           onClick={signOut}
           className="cursor-pointer h-10 w-10 rounded-full ml-2"
           src={session.user.image}
+          width={48}
+          height={48}
           alt=""
         />
       </header>
