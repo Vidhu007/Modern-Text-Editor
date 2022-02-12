@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Icon from "@material-tailwind/react/Icon";
@@ -20,14 +20,12 @@ import Login from "../components/Login";
 
 export default function Home() {
   const [session, loading] = useSession();
-  useEffect(() => {
-    if (!session) return <Login />;
-  }, []);
- 
+  if (!session) return <Login />;
 
   const [showModal, setShowModal] = useState(false);
   const [input, setInput] = useState("");
   const router = useRouter();
+
   const [snapshot] = useCollectionOnce(
     db
       .collection("userDocs")
@@ -40,7 +38,7 @@ export default function Home() {
     if (!input) return;
 
     db.collection("userDocs")
-      .doc(session?.user?.email)
+      .doc(session.user.email)
       .collection("docs")
       .add({
         fileName: input,

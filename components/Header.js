@@ -41,16 +41,14 @@ function Header() {
       >
         <Icon name="apps" size="3xl" color="gray" />
       </Button>
-      <div className="cursor-pointer" onClick={signOut}>
+
       <img
         loading="lazy"
-        className="h-12 w-12 rounded-full ml-2"
+        onClick={signOut}
+        className="cursor-pointer h-12 w-12 rounded-full ml-2"
         src={session.user.image}
         alt=""
       />
-      <p>Sign out</p>
-      </div>
-
     </div>
   );
 }

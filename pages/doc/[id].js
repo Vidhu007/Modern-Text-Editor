@@ -1,4 +1,3 @@
-import {useEffect } from "react";
 import TextEditor from "../../components/TextEditor";
 import Button from "@material-tailwind/react/Button";
 import Icon from "@material-tailwind/react/Icon";
@@ -10,13 +9,11 @@ import Login from "../../components/Login";
 
 function Doc() {
   const [session, loading] = useSession();
-  useEffect(() => {
-    if (!session) return <Login />;
-  }, [session]);
+  console.log(session);
+  if (!session) return <Login />;
 
   const router = useRouter();
   const { id } = router.query;
-
   const [snapshot, loadingSnapshot] = useDocumentOnce(
     db.collection("userDocs").doc(session.user.email).collection("docs").doc(id)
   );
