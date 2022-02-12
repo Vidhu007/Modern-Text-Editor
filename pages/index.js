@@ -83,7 +83,7 @@ export default function Home() {
     return () => {
       directingUserToLogin = false;
     };
-  }, []);
+  }, [router, session]);
 
   return (
     <div className="w-full h-screen">
@@ -118,6 +118,7 @@ export default function Home() {
               <Image
                 src="https://links.papareact.com/pju"
                 priority
+                alt="Create new document"
                 layout="fill"
               />
             </div>
