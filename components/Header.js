@@ -47,7 +47,12 @@ function Header() {
         loading="lazy"
         onClick={signOut}
         className="cursor-pointer h-12 w-12 rounded-full ml-2"
-        src={session?.user.image}
+        src={
+          session?.user.image ||
+          "https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg"
+        }
+        width={48}
+        height={48}
         alt="user Image"
       />
     </div>

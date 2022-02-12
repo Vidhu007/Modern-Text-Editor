@@ -1,19 +1,18 @@
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { getSession, useSession } from "next-auth/client";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { db, timestamp } from "../firebase";
 import Header from "../components/Header";
 import Icon from "@material-tailwind/react/Icon";
 import Button from "@material-tailwind/react/Button";
-import Image from "next/image";
 import DocumentRow from "../components/DocumentRow";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
-import { db, timestamp } from "../firebase";
-
-import { useCollectionOnce } from "react-firebase-hooks/firestore";
-import { getSession, useSession } from "next-auth/client";
-import Login from "../components/Login";
+import Login from "../components/login";
 
 export default function Home() {
   const [session, loading] = useSession();
@@ -76,14 +75,7 @@ export default function Home() {
     </Modal>
   );
 
-  useEffect(() => {
-    let directingUserToLogin = true;
-    if (!session) router.push("/auth/login");
-
-    return () => {
-      directingUserToLogin = false;
-    };
-  }, [router, session]);
+  if (!session) return <Login />;
 
   return (
     <div className="w-full h-screen">
@@ -151,12 +143,12 @@ export default function Home() {
   );
 }
 
-// export async function getServerSideProps(context) {
-//   const session = await getSession(context);
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
-//   return {
-//     props: {
-//       session,
-//     },
-//   };
-// }
+  return {
+    props: {
+      session,
+    },
+  };
+}
