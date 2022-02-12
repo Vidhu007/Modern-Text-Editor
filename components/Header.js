@@ -46,7 +46,7 @@ function Header() {
         loading="lazy"
         onClick={signOut}
         className="cursor-pointer h-12 w-12 rounded-full ml-2"
-        src={session.user.image}
+        src={session?.user.image}
         alt=""
       />
     </div>
