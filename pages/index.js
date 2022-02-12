@@ -12,7 +12,7 @@ import DocumentRow from "../components/DocumentRow";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
-import Login from "../components/login";
+import Login from "../components/Login";
 
 export default function Home() {
   const [session, loading] = useSession();
