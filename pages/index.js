@@ -8,8 +8,7 @@ import DocumentRow from "../components/DocumentRow";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
-import { db } from "../firebase";
-import firebase from "firebase";
+import { db, timestamp } from "../firebase";
 import { useRouter } from "next/dist/client/router";
 import {
   useCollection,
@@ -40,7 +39,7 @@ export default function Home() {
       .collection("docs")
       .add({
         fileName: input,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        timestamp: timestamp,
       })
       .then((doc) => router.push(`/doc/${doc.id}`));
 
