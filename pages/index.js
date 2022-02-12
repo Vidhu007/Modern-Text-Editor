@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { getSession, useSession } from "next-auth/client";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 import { db, timestamp } from "../firebase";
@@ -12,7 +12,7 @@ import DocumentRow from "../components/DocumentRow";
 import Modal from "@material-tailwind/react/Modal";
 import ModalBody from "@material-tailwind/react/ModalBody";
 import ModalFooter from "@material-tailwind/react/ModalFooter";
-import Login from "../components/Login";
+import Login from "../components/login";
 
 export default function Home() {
   const [session, loading] = useSession();
