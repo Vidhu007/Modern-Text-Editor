@@ -1,3 +1,17 @@
+## A Modern real time document editor
+
+A full stack app which offers various cool features to style the text, allowing the users to create, edit documents and access them anytime
+
+Now with google authentication !!
+
+Performed CRUD operations via firetime database and tried to make it look as close to actual google docs as possible with the help of material-ui and tailwind css !
+
+## Screenshots of the app's UI
+
+![image](https://github.com/Vidhu007/Media/raw/main/images/docs-1.png)
+![image](https://github.com/Vidhu007/Media/raw/main/images/docs-2.png)
+![image](https://github.com/Vidhu007/Media/raw/main/images/docs-3.png)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
